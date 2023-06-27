@@ -5,6 +5,7 @@ class KernelModel :
         self.source = kernel_source
         self.set_kernel(kernel_source)
         
+        self.state = "IDLE"
         self.parts = []
 
     def set_kernel(self, kernel_source) :
@@ -21,6 +22,10 @@ class KernelModel :
         for parts in self.parts :
             parts.run_parts()
     
+    @abstractmethod
+    def set_parts(self) :
+        pass
+    
     @abstractmethod  
     def update_kernel_obj(self) :
         self.kernel_obj.set_kernel_obj()
@@ -30,6 +35,7 @@ class KernelModel :
         pass
         
     def run_kernel(self) :
+        self.set_parts()
         self.run_parts()
         self.update_kernel_obj()
         self.exit_kernel()
